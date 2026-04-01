@@ -24,11 +24,14 @@ def play_student1_game():
         "a rare loot chest spawned nearby",
         "an NPC yelled for help"
     ])
+    
+    bold = "\033[1m"
+    reset = "\033[0m"
 
     story = f"""
-{player_name} loaded into {favorite_game} as a {character_type}.
-They grabbed their {adjective} {weapon} and headed toward {location}.
-Everything seemed normal at first, but then {event}.
+{bold}{player_name}{reset} loaded into {bold}{favorite_game}{reset} as a {bold}{character_type}{reset}.
+They grabbed their {bold}{adjective}{reset} {bold}{weapon}{reset} and headed toward {bold}{location}{reset}.
+Everything seemed normal at first, but then {bold}{event}{reset}.
 From that moment on, the adventure became completely wild.
 """
     print(story)

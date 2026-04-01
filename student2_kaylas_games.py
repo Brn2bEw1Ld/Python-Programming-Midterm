@@ -8,37 +8,50 @@ def get_input(prompt):
             return value
         print("Please enter something.")
 
-def play_student2_game():
-    print("\n=== Student 2: Favorite Game Challenge ===\n")
+def play_student1_game():
+    print("\n=== Student 1: Favorite Game Adventure ===\n")
 
     player_name = get_input("Enter a player name: ")
     favorite_game = get_input("Enter your favorite video game: ")
-    enemy = get_input("Enter an enemy or monster: ")
-    item = get_input("Enter a healing item or power-up: ")
-    game_mode = get_input("Enter a game mode: ")
-    emotion = get_input("Enter an emotion: ")
+    character_type = get_input("Enter a character class or role: ")
+    weapon = get_input("Enter a weapon or tool: ")
+    location = get_input("Enter a game location: ")
+    adjective = get_input("Enter an adjective: ")
 
-    problem = random.choice([
-        "the controller disconnected at the worst possible moment",
-        "all the enemies suddenly became twice as strong",
-        "the map changed without warning",
-        "a teammate accidentally triggered the alarm"
+    event = random.choice([
+        "a secret boss suddenly appeared",
+        "the screen started shaking from an explosion",
+        "a rare loot chest spawned nearby",
+        "an NPC yelled for help"
     ])
+    
+    bold = "\033[1m"
+    reset = "\033[0m"
 
+    green = "\033[92m"
+    cyan = "\033[96m"
+    yellow = "\033[93m"
+    magenta = "\033[95m"
+
+    bold_cyan = "\033[1;96m"
+    bold_green = "\033[1;92m"
+    bold_yellow = "\033[1;93m"
+    bold_magenta = "\033[1;95m"
+    
     story = f"""
-{player_name} was playing {favorite_game} in {game_mode} mode.
-Out of nowhere, a terrifying {enemy} appeared.
-They quickly reached for their {item}, feeling extremely {emotion}.
-Then {problem}, and the whole match turned into chaos.
+{bold_cyan}{player_name}{reset} loaded into {bold_green}{favorite_game}{reset} as a {bold_yellow}{character_type}{reset}.
+They grabbed their {bold_magenta}{adjective}{reset} {bold_yellow}{weapon}{reset} and headed toward {bold_green}{location}{reset}.
+Everything seemed normal at first, but then {bold_cyan}{event}{reset}.
+From that moment on, the adventure became completely wild.
 """
     print(story)
 
 def main():
     while True:
-        play_student2_game()
+        play_student1_game()
         again = input("Play again? (yes/no): ").strip().lower()
         if again != "yes":
-            print("Match ended!")
+            print("Game over!")
             break
 
 main()

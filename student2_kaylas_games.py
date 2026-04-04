@@ -1,6 +1,21 @@
 import random
+import json
 
 # Kayla's section of the Midterm Mad Lib Project
+
+# Set global scope variables
+bold = "\033[1m"
+reset = "\033[0m"
+
+green = "\033[92m"
+cyan = "\033[96m"
+yellow = "\033[93m"
+magenta = "\033[95m"
+
+bold_cyan = "\033[1;96m"
+bold_green = "\033[1;92m"
+bold_yellow = "\033[1;93m"
+bold_magenta = "\033[1;95m"
 
 # Checks if the given input is empty
 def isEmpty(given):
@@ -28,41 +43,62 @@ def wordPrompt(prompt):
         return wordPrompt(prompt)
     return given
 
-# Main Code
+def storyPrompt(madLibWords):
+    madLibWords["k_playerName"] = wordPrompt("Enter a player name: ")
+    madLibWords["k_gameTitle"] = wordPrompt("Enter the title to a game: ")
+    madLibWords["k_numMonst"] = numberPrompt("Enter a whole number: ")
+    madLibWords["k_descMonst"] = wordPrompt("Enter an adjective: ")
+    madLibWords["k_enemy"] = wordPrompt("Enter a type of enemy: ")
+    madLibWords["k_emotion"] = wordPrompt("Enter an emotion: ")
+    madLibWords["k_reaction"] = wordPrompt("Enter a reaction(sigh, scream, laugh, etc): ")
 
-playerName = wordPrompt("Enter a player name: ")
-gameTitle = wordPrompt("Enter the title to a game: ")
-numMonst = numberPrompt("Enter a whole number: ")
-descMonst = wordPrompt("Enter an adjective: ")
-enemy = wordPrompt("Enter a type of enemy: ")
-emotion = wordPrompt("Enter an emotion: ")
-reaction = wordPrompt("Enter a reaction(sigh, scream, laugh, etc): ")
+    
+    madLibWords["k_problem"] = random.choice([
+        "the world crumbled, becoming a vast void",
+        "many enemies surrounded them, with nowhere to run",
+        "they were teleported away",
+        "they began to fly, flying away from the chaos"
+        ])
 
-bold = "\033[1m"
-reset = "\033[0m"
+    story = f"""
+    {bold_cyan}{madLibWords["k_playerName"]}{reset} burst into a new world, the world of {bold_cyan}{madLibWords["k_gameTitle"]}{reset}.
+    Suddenly, {bold_cyan}{madLibWords["k_numMonst"]}{reset} {bold_cyan}{madLibWords["k_descMonst"]}{reset} {bold_cyan}{madLibWords["k_enemy"]}{reset}s appeared.
+    Feeling overcome with {bold_cyan}{madLibWords["k_emotion"]}{reset}, {bold_cyan}{madLibWords["k_playerName"]}{reset} let out a {bold_cyan}{madLibWords["k_reaction"]}{reset}.
+    Then in an instant, {bold_cyan}{madLibWords["k_problem"]}{reset}.
+    """
 
-green = "\033[92m"
-cyan = "\033[96m"
-yellow = "\033[93m"
-magenta = "\033[95m"
+    print(story)
+    return(madLibWords)
 
-bold_cyan = "\033[1;96m"
-bold_green = "\033[1;92m"
-bold_yellow = "\033[1;93m"
-bold_magenta = "\033[1;95m"
+def main():
+    try:
+        with open("madLibWords.json") as f:
+            madLibWords = json.load(f)
+    except FileNotFoundError:
+        madLibWords = {}
+    
+    if "k_playerName" in madLibWords:
+        print("Previous data found.")
+        print()
+        print(f"""
+            {bold_cyan}{madLibWords["k_playerName"]}{reset} burst into a new world, the world of {bold_cyan}{madLibWords["k_gameTitle"]}{reset}.
+            Suddenly, {bold_cyan}{madLibWords["k_numMonst"]}{reset} {bold_cyan}{madLibWords["k_descMonst"]}{reset} {bold_cyan}{madLibWords["k_enemy"]}{reset}s appeared.
+            Feeling overcome with {bold_cyan}{madLibWords["k_emotion"]}{reset}, {bold_cyan}{madLibWords["k_playerName"]}{reset} let out a {bold_cyan}{madLibWords["k_reaction"]}{reset}.
+            Then in an instant, {bold_cyan}{madLibWords["k_problem"]}{reset}.
+            """)
+        print()
+        ans = input("Would you like to keep current data? (y/n)").strip().lower()
+        if ans == "y":
+            print("Keeping current data. Thank you for playing.")
+        else:
+            madLibWords = storyPrompt(madLibWords)
+            with open("madLibWords.json", "w") as f:
+                json.dump(madLibWords, f, indent=4)
+    else:
+        print("No previous data found.")
+        madLibWords = storyPrompt(madLibWords)
+        with open("madLibWords.json", "w") as f:
+            json.dump(madLibWords, f, indent=4)
 
-problem = random.choice([
-    "the world crumbled, becoming a vast void",
-    "many enemies surrounded them, with nowhere to run",
-    "they were teleported away",
-    "they began to fly, flying away from the chaos"
-    ])
-
-story = f"""
-{bold_cyan}{playerName}{reset} burst into a new world, the world of {bold_cyan}{gameTitle}{reset}.
-Suddenly, {bold_cyan}{numMonst}{reset} {bold_cyan}{descMonst}{reset} {bold_cyan}{enemy}{reset}s appeared.
-Feeling overcome with {bold_cyan}{emotion}{reset}, {bold_cyan}{playerName}{reset} let out a {bold_cyan}{reaction}{reset}.
-Then in an instant, {bold_cyan}{problem}{reset}.
-"""
-
-print(story)
+# Calling Main
+main()

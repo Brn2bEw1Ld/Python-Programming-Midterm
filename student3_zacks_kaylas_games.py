@@ -50,7 +50,7 @@ Then {twist}, turning the battle into the ultimate gaming showdown.
     print(story)
 
 def checkPreviousPrograms(madLibWords):
-    if "put Zacks Playername Here" in madLibWords and "k_playerName" in madLibWords:
+    if "z_hero" in madLibWords and "k_playerName" in madLibWords:
         return True
     else:
         return False
@@ -71,9 +71,9 @@ def main():
             if ans == "y":
                 print("Keeping current data. Thank you for playing.")
             else:   
-            play_student3_game(madLibWords)
-            with open(file_path, "w") as f:
-                json.dump(madLibWords.json, f, indent=4)
+                play_student3_game(madLibWords)
+                with open(file_path, "w") as f:
+                    json.dump(madLibWords, f, indent=4)
     else:
         print("No previous data found.")
         print("Please ensure both Zack's and Kayla's")

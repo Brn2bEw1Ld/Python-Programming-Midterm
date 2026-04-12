@@ -101,12 +101,12 @@ def main():
             madLibWords = storyPrompt(madLibWords)
             with open(file_path, "w") as f:
                 json.dump(madLibWords, f, indent=4)
-            input("Press any key to escape")
     else: # No previous data found, run program and save in json
         print("No previous data found.")
         madLibWords = storyPrompt(madLibWords)
         with open(file_path, "w") as f:
             json.dump(madLibWords, f, indent=4)
+    input("Press enter to close.")
 
 # Calling Main
 main()

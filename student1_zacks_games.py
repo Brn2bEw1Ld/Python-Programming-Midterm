@@ -27,6 +27,11 @@ def play_student1_game():
     # ANSI escape codes for the bold text for the bold text formmating
     bold = "\033[1m"
     reset = "\033[0m"
+
+    bold_cyan = "\033[1;96m"
+    bold_green = "\033[1;92m"
+    bold_yellow = "\033[1;93m"
+    bold_magenta = "\033[1;95m"
     # Table to be able to build the story with user inputs
     story = f"""
 {bold}{player_name}{reset} loaded into {bold}{favorite_game}{reset} as a {bold}{character_type}{reset}.

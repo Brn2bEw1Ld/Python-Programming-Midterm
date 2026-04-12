@@ -34,9 +34,9 @@ def play_student1_game():
     bold_magenta = "\033[1;95m"
     # Table to be able to build the story with user inputs
     story = f"""
-{bold}{player_name}{reset} loaded into {bold}{favorite_game}{reset} as a {bold}{character_type}{reset}.
-They grabbed their {bold}{adjective}{reset} {bold}{weapon}{reset} and headed toward {bold}{location}{reset}.
-Everything seemed normal at first, but then {bold}{event}{reset}.
+{bold_cyan}{player_name}{reset} loaded into {bold_green}{favorite_game}{reset} as a {bold_yellow}{character_type}{reset}.
+They grabbed their {bold_magenta}{adjective}{reset} {bold_green}{weapon}{reset} and headed toward {bold_green}{location}{reset}.
+Everything seemed normal at first, but then {bold_yellow}{event}{reset}.
 From that moment on, the adventure became completely wild.
 """
     print(story)

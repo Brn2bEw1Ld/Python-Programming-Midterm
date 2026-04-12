@@ -43,6 +43,7 @@ def wordPrompt(prompt):
         return wordPrompt(prompt)
     return given
 
+# Complete story prompt, returning the dictionary so it can be written to madLibWords.json
 def storyPrompt(madLibWords):
     madLibWords["k_playerName"] = wordPrompt("Enter a player name: ")
     madLibWords["k_gameTitle"] = wordPrompt("Enter the title to a game: ")
@@ -52,31 +53,33 @@ def storyPrompt(madLibWords):
     madLibWords["k_emotion"] = wordPrompt("Enter an emotion: ")
     madLibWords["k_reaction"] = wordPrompt("Enter a reaction(sigh, scream, laugh, etc): ")
 
-    
+    # Generate a random choice, just for fun
     madLibWords["k_problem"] = random.choice([
         "the world crumbled, becoming a vast void",
         "many enemies surrounded them, with nowhere to run",
         "they were teleported away",
         "they began to fly, flying away from the chaos"
         ])
-
+    # Generate story
     story = f"""
     {bold_cyan}{madLibWords["k_playerName"]}{reset} burst into a new world, the world of {bold_cyan}{madLibWords["k_gameTitle"]}{reset}.
     Suddenly, {bold_cyan}{madLibWords["k_numMonst"]}{reset} {bold_cyan}{madLibWords["k_descMonst"]}{reset} {bold_cyan}{madLibWords["k_enemy"]}{reset}s appeared.
     Feeling overcome with {bold_cyan}{madLibWords["k_emotion"]}{reset}, {bold_cyan}{madLibWords["k_playerName"]}{reset} let out a {bold_cyan}{madLibWords["k_reaction"]}{reset}.
     Then in an instant, {bold_cyan}{madLibWords["k_problem"]}{reset}.
     """
-
+    # Print the story
     print(story)
     return(madLibWords)
 
 def main():
+    # Try to open the json file, if it doesnt exist, create a new dictionary
     try:
         with open("madLibWords.json") as f:
             madLibWords = json.load(f)
     except FileNotFoundError:
         madLibWords = {}
-    
+
+    # If json file is already filled, ask if the player would like to keep data
     if "k_playerName" in madLibWords:
         print("Previous data found.")
         print()
@@ -88,13 +91,13 @@ def main():
             """)
         print()
         ans = input("Would you like to keep current data? (y/n)").strip().lower()
-        if ans == "y":
+        if ans == "y": # Keep data
             print("Keeping current data. Thank you for playing.")
-        else:
+        else: # Rewrite data
             madLibWords = storyPrompt(madLibWords)
             with open("madLibWords.json", "w") as f:
                 json.dump(madLibWords, f, indent=4)
-    else:
+    else: # No previous data found, run program and save in json
         print("No previous data found.")
         madLibWords = storyPrompt(madLibWords)
         with open("madLibWords.json", "w") as f:

@@ -42,13 +42,32 @@ def play_student3_game(madLibWords):
     ])
 
     story = f"""
-In a crazy crossover between {game_one} and {game_two}, {hero} entered {location}.
-There they found the powerful {special_item} while {verb}.
-Suddenly, {villain} appeared and attacked without warning.
-Then {twist}, turning the battle into the ultimate gaming showdown.
+{bold_cyan}{madLibWords["z_hero"]}{reset} was traveling through {bold_green}{madLibWords["z_favoriteGame"]}{reset}
+when a portal ripped open and pulled them into the world of {bold_green}{madLibWords["k_gameTitle"]}{reset}.
+
+At the same time, {bold_cyan}{madLibWords["k_playerName"]}{reset} was surrounded by
+{bold_yellow}{madLibWords["k_numMonst"]}{reset} {bold_yellow}{madLibWords["k_descMonst"]}{reset}
+{bold_yellow}{madLibWords["k_enemy"]}s{reset} and barely holding on.
+
+With the powerful {bold_magenta}{madLibWords["z_specialItem"]}{reset} in hand,
+{bold_cyan}{madLibWords["z_hero"]}{reset} landed in {bold_green}{madLibWords["c_loc"]}{reset}
+just as {bold_yellow}{madLibWords["z_event"]}{reset}.
+
+While {bold_yellow}{madLibWords["c_verb"]}{reset}, the two heroes discovered the legendary
+{bold_magenta}{madLibWords["c_item"]}{reset}, but before they could escape,
+{bold_magenta}{madLibWords["c_villain"]}{reset} appeared beside
+{bold_magenta}{madLibWords["z_villain"]}{reset}.
+
+Feeling {bold_yellow}{madLibWords["k_emotion"]}{reset}, {bold_cyan}{madLibWords["k_playerName"]}{reset}
+let out a loud {bold_yellow}{madLibWords["k_reaction"]}{reset} as
+{bold_yellow}{madLibWords["k_problem"]}{reset}.
+
+Then {bold_magenta}{madLibWords["c_twist"]}{reset}, turning the crossover between
+{bold_green}{madLibWords["z_gameTwo"]}{reset} and {bold_green}{madLibWords["k_gameTitle"]}{reset}
+into the ultimate gaming showdown.
 """
     print(story)
-
+    return madLibWords
 def checkPreviousPrograms(madLibWords):
     if "z_hero" in madLibWords and "k_playerName" in madLibWords:
         return True
@@ -66,14 +85,42 @@ def main():
         if "c_villain" in madLibWords:
             print("Previous data found.")
             print()
-            print()#Insert story here as well
+            print(f"""
+{bold_cyan}{madLibWords["z_hero"]}{reset} was traveling through {bold_green}{madLibWords["z_favoriteGame"]}{reset}
+when a portal ripped open and pulled them into the world of {bold_green}{madLibWords["k_gameTitle"]}{reset}.
+
+At the same time, {bold_cyan}{madLibWords["k_playerName"]}{reset} was surrounded by
+{bold_yellow}{madLibWords["k_numMonst"]}{reset} {bold_yellow}{madLibWords["k_descMonst"]}{reset}
+{bold_yellow}{madLibWords["k_enemy"]}s{reset} and barely holding on.
+
+With the powerful {bold_magenta}{madLibWords["z_specialItem"]}{reset} in hand,
+{bold_cyan}{madLibWords["z_hero"]}{reset} landed in {bold_green}{madLibWords["c_loc"]}{reset}
+just as {bold_yellow}{madLibWords["z_event"]}{reset}.
+
+While {bold_yellow}{madLibWords["c_verb"]}{reset}, the two heroes discovered the legendary
+{bold_magenta}{madLibWords["c_item"]}{reset}, but before they could escape,
+{bold_magenta}{madLibWords["c_villain"]}{reset} appeared beside
+{bold_magenta}{madLibWords["z_villain"]}{reset}.
+
+Feeling {bold_yellow}{madLibWords["k_emotion"]}{reset}, {bold_cyan}{madLibWords["k_playerName"]}{reset}
+let out a loud {bold_yellow}{madLibWords["k_reaction"]}{reset} as
+{bold_yellow}{madLibWords["k_problem"]}{reset}.
+
+Then {bold_magenta}{madLibWords["c_twist"]}{reset}, turning the crossover between
+{bold_green}{madLibWords["z_gameTwo"]}{reset} and {bold_green}{madLibWords["k_gameTitle"]}{reset}
+into the ultimate gaming showdown.
+""")
             ans = input("Would you like to keep current data? (y/n)")
             if ans == "y":
                 print("Keeping current data. Thank you for playing.")
             else:   
-                play_student3_game(madLibWords)
+                madLibWords = play_student3_game(madLibWords)
                 with open(file_path, "w") as f:
                     json.dump(madLibWords, f, indent=4)
+        else:
+            madLibWords = play_student3_game(madLibWords)
+            with open(file_path, "w") as f:
+                json.dump(madLibWords, f, indent=4)
     else:
         print("No previous data found.")
         print("Please ensure both Zack's and Kayla's")
@@ -81,3 +128,4 @@ def main():
         print("Closing Program.")
 
 main()
+input("Press Enter to Close...")

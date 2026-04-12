@@ -1,7 +1,11 @@
 import random
 import json
+import os
 
 # Kayla's section of the Midterm Mad Lib Project
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "madLibWords.json")
 
 # Set global scope variables
 bold = "\033[1m"
@@ -74,7 +78,7 @@ def storyPrompt(madLibWords):
 def main():
     # Try to open the json file, if it doesnt exist, create a new dictionary
     try:
-        with open("madLibWords.json") as f:
+        with open(file_path) as f:
             madLibWords = json.load(f)
     except FileNotFoundError:
         madLibWords = {}
@@ -95,12 +99,13 @@ def main():
             print("Keeping current data. Thank you for playing.")
         else: # Rewrite data
             madLibWords = storyPrompt(madLibWords)
-            with open("madLibWords.json", "w") as f:
+            with open(file_path, "w") as f:
                 json.dump(madLibWords, f, indent=4)
+            input("Press any key to escape")
     else: # No previous data found, run program and save in json
         print("No previous data found.")
         madLibWords = storyPrompt(madLibWords)
-        with open("madLibWords.json", "w") as f:
+        with open(file_path, "w") as f:
             json.dump(madLibWords, f, indent=4)
 
 # Calling Main

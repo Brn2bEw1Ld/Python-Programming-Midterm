@@ -33,7 +33,9 @@ def play_student1_game():
     
     bold = "\033[1m"
     reset = "\033[0m"
+    
     # These are used to make the specific madlib words stand and pop out visually when printed
+    
     bold_cyan = "\033[1;96m"
     bold_green = "\033[1;92m"
     bold_yellow = "\033[1;93m"

@@ -1,5 +1,9 @@
 import random
 import json
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "madLibWords.json")
 
 # Set global scope variables
 bold = "\033[1m"
@@ -53,7 +57,7 @@ def checkPreviousPrograms(madLibWords):
         
 def main():
     try:
-        with open("madLibWords.json") as f:
+        with open(file_path) as f:
             madLibWords = json.load(f)
     except FileNotFoundError:
         madLibWords = {}
@@ -68,7 +72,7 @@ def main():
                 print("Keeping current data. Thank you for playing.")
             else:   
             play_student3_game(madLibWords)
-            with open("madLibWords.json", "w") as f:
+            with open(file_path, "w") as f:
                 json.dump(madLibWords.json, f, indent=4)
     else:
         print("No previous data found.")

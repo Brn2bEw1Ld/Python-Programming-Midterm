@@ -10,24 +10,24 @@ def get_input(prompt):
 
 def play_student1_game():
     print("\n=== Student 1: Favorite Game Adventure ===\n")
-
+    # Collect all user inputs for the madlib story
     player_name = get_input("Enter a player name: ")
     favorite_game = get_input("Enter your favorite video game: ")
     character_type = get_input("Enter a character class or role: ")
     weapon = get_input("Enter a weapon or tool: ")
     location = get_input("Enter a game location: ")
     adjective = get_input("Enter an adjective: ")
-
+    # Random events to help make each story feel slightly different
     event = random.choice([
         "a secret boss suddenly appeared",
         "the screen started shaking from an explosion",
         "a rare loot chest spawned nearby",
         "an NPC yelled for help"
     ])
-    
+    # ANSI escape codes for the bold text for the bold text formmating
     bold = "\033[1m"
     reset = "\033[0m"
-
+    # Table to be able to build the story with user inputs
     story = f"""
 {bold}{player_name}{reset} loaded into {bold}{favorite_game}{reset} as a {bold}{character_type}{reset}.
 They grabbed their {bold}{adjective}{reset} {bold}{weapon}{reset} and headed toward {bold}{location}{reset}.
